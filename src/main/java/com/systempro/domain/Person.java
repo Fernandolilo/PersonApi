@@ -99,7 +99,6 @@ public class Person implements Serializable{
 	public void setTelefones(Set<String> telefones) {
 		this.telefones = telefones;
 	}
-
-	   
+  
 
 }
