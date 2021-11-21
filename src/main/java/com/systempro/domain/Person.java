@@ -2,10 +2,14 @@ package com.systempro.domain;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -32,13 +36,14 @@ public class Person implements Serializable{
 
     private LocalDate birthDate;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
-    private List<Phone> phones;
+    @ElementCollection
+	@CollectionTable(name = " TELEFONE")
+	private Set<String> telefones = new HashSet<>();
     
     public Person() {
     }
 
-	public Person(Long id, String firstName, String lastName, String cpf, LocalDate birthDate, List<Phone> phones) {
+	public Person(Long id, String firstName, String lastName, String cpf, LocalDate birthDate) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -87,14 +92,14 @@ public class Person implements Serializable{
 		this.birthDate = birthDate;
 	}
 
-	public List<Phone> getPhones() {
-		return phones;
+	public Set<String> getTelefones() {
+		return telefones;
 	}
 
-	public void setPhones(List<Phone> phones) {
-		this.phones = phones;
+	public void setTelefones(Set<String> telefones) {
+		this.telefones = telefones;
 	}
-    
-    
+
+	   
 
 }
