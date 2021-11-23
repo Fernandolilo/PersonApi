@@ -6,11 +6,13 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.systempro.domain.Person;
 import com.systempro.dto.PersonNewDTO;
 import com.systempro.repositories.PersonRepository;
+import com.systempro.service.exception.DataIntegrityException;
 
 @Service
 public class PersonService {
@@ -56,9 +58,18 @@ public class PersonService {
 
 	}
 
+	// aux update
 	private void updateData(Person newObj, Person obj) {
 		newObj.setPhones(obj.getPhones());
-
 	}
 
+	public void delete(Long id) {
+		find(id);
+		try {
+			repository.deleteById(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possivel excluir este ID");
+		}
+
+	}
 }
