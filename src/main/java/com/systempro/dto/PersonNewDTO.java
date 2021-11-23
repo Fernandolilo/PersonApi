@@ -3,16 +3,27 @@ package com.systempro.dto;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import javax.persistence.Column;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.br.CPF;
 
 public class PersonNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
+	@NotEmpty(message = "Preenchimento obrigatório")
+	@Size(min= 3, max = 15)
 	private String firstName;
+	@NotEmpty(message = "Preenchimento obrigatório")
+	@Size(min= 3, max = 15)
 	private String lastName;
+	@CPF
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String cpf;
 	private LocalDate birthDate;
+	@NotEmpty(message = "Preenchimento obrigatório")
+	@Size(min= 9, max = 15)
 	private String phone;
 	private String phoneOne;
 	private String phoneTo;

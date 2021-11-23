@@ -3,45 +3,44 @@ package com.systempro.domain;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+
+import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
-public class Person implements Serializable{
+public class Person implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(nullable = false)
-    private String firstName;
+	@Column(nullable = false)
+	private String firstName;
 
-    @Column(nullable = false)
-    private String lastName;
+	@Column(nullable = false)
+	private String lastName;
 
-    @Column(nullable = false, unique = true)
-    private String cpf;
+	@CPF
+	@Column(nullable = false, unique = true)
+	private String cpf;
 
-    private LocalDate birthDate;
+	private LocalDate birthDate;
 
-    @ElementCollection
-	@CollectionTable(name = " TELEFONE")
-	private Set<String> telefones = new HashSet<>();
-    
-    public Person() {
-    }
+	@ElementCollection
+	@CollectionTable(name = " PHONE")
+	private Set<String> phones = new HashSet<>();
+
+	public Person() {
+	}
 
 	public Person(Long id, String firstName, String lastName, String cpf, LocalDate birthDate) {
 		super();
@@ -50,6 +49,7 @@ public class Person implements Serializable{
 		this.lastName = lastName;
 		this.cpf = cpf;
 		this.birthDate = birthDate;
+
 	}
 
 	public Long getId() {
@@ -92,13 +92,13 @@ public class Person implements Serializable{
 		this.birthDate = birthDate;
 	}
 
-	public Set<String> getTelefones() {
-		return telefones;
+	public Set<String> getPhones() {
+		return phones;
 	}
 
-	public void setTelefones(Set<String> telefones) {
-		this.telefones = telefones;
+	public void setPhones(Set<String> phones) {
+		this.phones = phones;
 	}
-  
 
+	
 }
